@@ -1,7 +1,7 @@
-from collections import deque
+from collections import deque  # Importing Deque
 
 
-class Stack:
+class Stack:                    # Class for Stack Implementation
     def __init__(self) -> None:
         self.control = deque()
 
@@ -27,19 +27,32 @@ class Stack:
         return len(self.control) == 0
 
 
-def evaluator(exp):
-    express = Stack()
-    eva = Stack()
-    for c in exp:
+def evaluate(exp):     # Function for evaluating prefix expression
+    """
+     Note: I am using stack here for reversing the order of expression
+     Because I think that it maybe more efficient than traditional ways
+     Further knowledge and research is required
+    """
+    express = Stack()   # Stack for reversing expression
+    eva = Stack()       # Stack for storing expression data durning evaluation
+
+    for c in exp:       # Loop for pushing an epression into reversing stack
         express.push(c)
 
-    for x in range(express.size()):
-        popped = express.pop()
-        if popped.isalpha() or popped in '1234567890':
+    for x in range(express.size()):  # Loop for evaluation
+        popped = express.pop()       # Pop element at a time
+
+        # Check if popped element is operand or not
+        if popped.isalpha() or popped in '1234567890': 
             eva.push(popped)
+
+        # Check else if popped element is operator or not
         elif popped in '+-*/':
             op1 = int(eva.pop())
             op2 = int(eva.pop())
+
+            # Following conditions performs arithimetic operations
+            # based upon type of character
             if popped == '+':
                 eva.push(op2 + op1)
             elif popped == '-':
@@ -50,8 +63,8 @@ def evaluator(exp):
                 eva.push(op2 / op1)
     return eva.top()
 
-
-# Press the green button in the gutter to run the script.
+# Calling function for evaluation:-
 if __name__ == '__main__':
-    s = "-+7*45+20"
-    print(evaluator(s))
+    expression = "-+7*45+21"
+    print("Prefix Expression Evaluation: ", expression, end="")
+    print(" == ",evaluate(expression))
