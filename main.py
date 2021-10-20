@@ -67,4 +67,4 @@ def evaluate(exp):     # Function for evaluating prefix expression
 if __name__ == '__main__':
     expression = "-+7*45+21"
     print("Prefix Expression Evaluation: ", expression, end="")
-    print(" == ",evaluate(expression))
+    print(" == ", evaluate(expression))
